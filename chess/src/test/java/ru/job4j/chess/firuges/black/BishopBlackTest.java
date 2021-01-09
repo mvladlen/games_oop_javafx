@@ -21,14 +21,11 @@ public class BishopBlackTest extends TestCase {
         assertEquals(bishopCopy.position(), Cell.D2);
     }
 
-    @Test
-    public void testWay() {
+    @Test (expected = ImpossibleMoveException.class)
+    public void testWay() throws ImpossibleMoveException {
         BishopBlack bishopBlack = new BishopBlack(Cell.C1);
         Cell[] way = {};
-        try {
-            way = bishopBlack.way(Cell.G5);
-        } catch (Exception e) {
-        }
+        way = bishopBlack.way(Cell.G5);
         Cell[] test = new Cell[]{Cell.D2, Cell.E3, Cell.F4, Cell.G5};
         for (int i = 0; i < way.length; i++) {
             if (way[i] != test[i]) assertFalse(true);
@@ -36,15 +33,13 @@ public class BishopBlackTest extends TestCase {
         assertTrue(true);
     }
 
-    @Test
-    public void testWayException() {
+    @Test (expected = ImpossibleMoveException.class)
+    public void testWayException() throws ImpossibleMoveException{
         BishopBlack bishopBlack = new BishopBlack(Cell.C1);
+        String str="";
         try {
             Cell[] way = bishopBlack.way(Cell.G4);
-        } catch (ImpossibleMoveException e) {
-            assertTrue(e.getMessage().equals("Could not way by diagonal from C1 to G4"));
+        } catch (Exception e) {str= e.getMessage();}
+            assertTrue(str.toString().equals("Could not way by diagonal from C1 to G4"));
         }
-    }
-
-
 }
